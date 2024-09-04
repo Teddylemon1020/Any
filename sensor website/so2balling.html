@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One-Sensor Detection Web App</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .container {
+        max-width: 800px; /* Increased width to accommodate the graph */
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+    }
+    #status {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+    #sensor {
+        text-align: center;
+        font-size: 18px;
+    }
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <img src="423036236_6576257039141966_180948789301725321_n.png" alt="logo" style="max-width: 150px;">
+    </header>
+    <h1>One-Sensor Detection Web App</h1>
+    <div id="status">Status: Inactive</div>
+    <div id="sensor">Sensor: Not Detected</div>
+    <canvas id="sensorGraph" width="600" height="400"></canvas> <!-- Canvas element for the graph -->
+    <button id="activateBtn" class="btn" onclick="activateSensor()">Activate Sensor</button>
+    <button id="deactivateBtn" class="btn" onclick="deactivateSensor()" style="display: none;">Deactivate Sensor</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
+<script>
+    // Function to simulate sensor detection
+    function detectSensor() {
+        return Math.random() < 0.5; // Simulate detection randomly
+    }
+
+    // Function to activate the sensor
+    function activateSensor() {
+        document.getElementById("status").innerText = "Status: Active";
+        document.getElementById("sensor").innerText = "Sensor: Detecting";
+        document.getElementById("activateBtn").style.display = "none";
+        document.getElementById("deactivateBtn").style.display = "inline-block";
+
+        // Simulate sensor detection
+        if (detectSensor()) {
+            document.getElementById("sensor").innerText = "Sensor: Detected";
+        } else {
+            document.getElementById("sensor").innerText = "Sensor: Not Detected";
+        }
+
+        // Update graph
+        updateGraph();
+    }
+
+    // Function to deactivate the sensor
+    function deactivateSensor() {
+        document.getElementById("status").innerText = "Status: Inactive";
+        document.getElementById("sensor").innerText = "Sensor: Not Detected";
+        document.getElementById("activateBtn").style.display = "inline-block";
+        document.getElementById("deactivateBtn").style.display = "none";
+    }
+
+    // Function to update the graph
+    function updateGraph() {
+        var ctx = document.getElementById('sensorGraph').getContext('2d');
+        var sensorData = [/* Your sensor data array here */]; // Example: [10, 20, 30, 40, 50]
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1', '2', '3', '4', '5'], // Example: Time intervals
+                datasets: [{
+                    label: 'PPM Measured by Oxygen Sensor',
+                    data: sensorData,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Example color
+                    borderColor: 'rgba(255, 99, 132, 1)', // Example color
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

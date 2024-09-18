@@ -1,0 +1,366 @@
+@import url('https://fonts.googleapis.com/css? family=Poppins: 200,300,400,500,600,700,800,900& display=swap');
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: borer-box;
+    font-family: 'Poppins', sans-serif;
+
+}
+body
+{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #333;
+}
+.container
+{
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container .spinBtn {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: #fff;
+    border-radius: 50%; /* Corrected to 50% */
+    z-index: 10;
+    display: flex; /* Fixed typo: "felx" to "flex" */
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #333;
+    letter-spacing: 0.1em;
+    border: 4px solid rgba(0, 0, 0, 0.75);
+    cursor: pointer;
+    user-select: none;
+}
+
+.container .spinBtn::before { /*gpt  adjusted those who are commendted*/
+    content: '';
+    position: absolute;
+    top: -28px; /* Adjust if needed */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Correct for width offset */
+    width: 20px;
+    height: 30px;
+    background: #fff;
+    clip-path: polygon(50% 0%, 15% 100%, 85% 100%);
+}
+.container .wheel
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #333;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 5px #333,
+    0 0 0 15px #fff, 
+    0 0 0 18px #111;
+    transition: transform 5s ease-in-out; /* Ensure smooth rotation */ 
+}
+.container .wheel .number {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    background: var(--clr);
+    transform-origin: bottom right;
+    transform: rotate(calc(21.18deg * var(--i))); /* Correct calculation for 17 segments */
+    clip-path: polygon(0 0, 31% 0, 100% 100%, 0 31%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff; /* Change this to the color you want */
+}
+.container .wheel .number span::after
+{
+    content: '';
+    position: absolute;
+    font-size: 0.75em;
+    font-weight: 500;
+
+}
+/* General styling for the body */
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Styling for the container holding the wheel */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin-bottom: 20px; /* Adds space between wheel and buttons */
+}
+
+/* Styling for the button container */
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Creates 4 columns */
+    gap: 10px;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+
+.push-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px #999;
+}
+
+.push-btn:hover {
+    background-color: #555;
+}
+
+.push-btn:active {
+    box-shadow: 0 2px #666;
+    transform: translateY(4px);
+}
+
+.color-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    flex-direction: column; /* Stack color buttons vertically */
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.color-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+    text-transform: uppercase;
+}
+
+/* Different background colors for each button */
+.green {
+    background-color: #28a745;
+}
+
+.green:hover {
+    background-color: #218838;
+}
+
+.black {
+    background-color: #333;
+}
+
+.black:hover {
+    background-color: #555;
+}
+
+.red {
+    background-color: #dc3545;
+}
+
+.red:hover {
+    background-color: #c82333;
+}
+
+/* Styling for smaller screens */
+@media (max-width: 400px) {
+    .button-container {
+        grid-template-columns: repeat(3, 1fr); /* Changes to 3 columns on smaller screens */
+    }
+}
+
+.bet-display {
+    display: block;
+    font-size: 0.9em;
+    color: #fff;
+    margin-top: 5px;
+}
+
+/* Player container on the right side */
+.player-container {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    position: fixed; /* Fixed positioning */
+    top: 100px; /* Vertical position */
+    right: 20px; /* Distance from the right side of the screen */
+}
+
+.player {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 200px;
+}
+
+.player h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.player p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.player span {
+    font-weight: bold;
+    color: #007bff;
+}
+/* Styling for control buttons (Undo, Redo) */
+.control-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.action-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px #999;
+}
+
+.action-btn:hover {
+    background-color: #555;
+}
+
+.action-btn:active {
+    box-shadow: 0 2px #666;
+    transform: translateY(4px);
+}
+
+/* Styling for range buttons (1-8, 9-16) */
+.range-container {
+    display: flex;
+    gap: 10px;
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+.range-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.range-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px #999;
+    width: 80px;
+}
+
+.range-btn:hover {
+    background-color: #0056b3;
+}
+
+.range-btn:active {
+    box-shadow: 0 2px #666;
+    transform: translateY(4px);
+}
+/* Container for the image on the left */
+.left-image-container {
+    position: fixed;
+    top: 50%; /* Center the image vertically */
+    left: 0; /* Stick the image to the left side */
+    transform: translateY(-50%); /* Adjust to center vertically */
+    padding-left: 10px; /* Space between the edge and image */
+}
+
+
+/* Parent container for buttons and image */
+.buttons-above-image-container {
+    display: flex;
+    flex-direction: column; /* Stack buttons and image vertically */
+    align-items: center; /* Center items horizontally */
+    gap: 10px; /* Space between buttons and image */
+    position: fixed; /* Fixed positioning */
+    top: 20px; /* Distance from the top of the viewport */
+    left: 8%; /* Center horizontally */
+    transform: translateX(-50%); /* Center the container */
+    z-index: 1000; /* Ensure it appears on top of other elements */
+}
+
+/* Container for Chip Distribution and Profile buttons */
+.button-group {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px; /* Space between buttons */
+}
+
+/* Styling for Chip Distribution and Profile buttons */
+.chip-btn, .profile-btn {
+    background-color: #007bff; /* Primary button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px #999;
+    width: 150px; /* Adjust width for positioning */
+}
+
+.chip-btn:hover, .profile-btn:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.chip-btn:active, .profile-btn:active {
+    box-shadow: 0 2px #666;
+    transform: translateY(4px); /* Slight movement on click */
+}

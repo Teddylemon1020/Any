@@ -28,7 +28,6 @@ function Bangkero(newBankero, oldBankero) {
 function freeze_buttons() {
     if (Ingame === true && spinning === true) {  
         Spin_btn = false;
-        commands = false;
         Number_color_btn_active = false;
         Numbers_btn = false; 
 
@@ -52,18 +51,6 @@ function freeze_colors(){
     }
 }
 
-function freeze_commands(){
-    let buttons = document.querySelectorAll('.action-btn');
-    if (commands == false){
-        buttons.forEach(button =>{
-            button.classList.add('inactive');
-        });
-    } else {
-        buttons.forEach(button =>{
-            button.classList.remove('inactive');
-        });
-    }
-}
 
 function freeze_Numbers(){
     let buttons = document.querySelectorAll('.push-btn');
@@ -98,7 +85,6 @@ function chip_distribution(selectedPlayer, added_chips){
 //add 10 seconds delay 
 //add console
 // add freeze to spin button 
-//remove undo and redo button
 // ui na ginawa ni sir ryko 
 // add remove player
 // add alert for the number that is selected in the roulette

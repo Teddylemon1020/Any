@@ -107,4 +107,3 @@ function chip_distribution(selectedPlayer, added_chips){
 //read and write new value of chips from current game
 //terms and agreement and rules of the game
 
-DelayNode(10000) //10 seconds

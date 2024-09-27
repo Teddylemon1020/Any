@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wheel Spinner</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div class="popup-overlay" id="popup">
+            <div class="popup-content">
+                <h2>RULES and REGULATIONS</h2>
+                <p>PAY TABLE RULES
+                    Red or Black: 1:1
+                    1-8 or 9-16: 1:1
+                    Zero (Green): 1:8
+                    Direct Number (Single Number): 1:15 <br>P.S.
+                    "players must withdraw their credit 1st before changing bankero"</br></p>
+                <button class="close-popup-btn" id="closePopupBtn">I Understand</button>
+            </div>
+        </div>
+        <div class="container">
+            <div class="spinBtn">Spin</div>
+            <div class="wheel">
+                <div class="number" style="--i:1;--clr:#06402B;">
+                    <span>0</span>
+                </div>
+                <div class="number" style="--i:2;--clr:#000000;">
+                    <span>1</span>
+                </div>
+                <div class="number" style="--i:3;--clr:#8B0000;">
+                    <span>2</span>
+                </div>
+                <div class="number" style="--i:4;--clr:#000000;">
+                    <span>3</span>
+                </div>
+                <div class="number" style="--i:5;--clr:#8B0000;">
+                    <span>4</span>
+                </div>
+                <div class="number" style="--i:6;--clr:#000000;">
+                    <span>5</span>
+                </div>
+                <div class="number" style="--i:7;--clr:#8B0000;">
+                    <span>6</span>
+                </div>
+                <div class="number" style="--i:8;--clr:#000000;">
+                    <span>7</span>
+                </div>
+                <div class="number" style="--i:9;--clr:#8B0000;">
+                    <span>8</span>
+                </div>
+                <div class="number" style="--i:10;--clr:#000000;">
+                    <span>9</span>
+                </div>
+                <div class="number" style="--i:11;--clr:#8B0000;">
+                    <span>10</span>
+                </div>
+                <div class="number" style="--i:12;--clr:#000000;">
+                    <span>11</span>
+                </div>
+                <div class="number" style="--i:13;--clr:#8B0000;">
+                    <span>12</span>
+                </div>
+                <div class="number" style="--i:14;--clr:#000000;">
+                    <span>13</span>
+                </div>
+                <div class="number" style="--i:15;--clr:#8B0000;">
+                    <span>14</span>
+                </div>
+                <div class="number" style="--i:16;--clr:#000000;">
+                    <span>15</span>
+                </div>
+                <div class="number" style="--i:17;--clr:#8B0000;">
+                    <span>16</span>
+                </div>
+            </div>
+            <script>
+                let wheel = document.querySelector('.wheel');
+                let spinBtn = document.querySelector('.spinBtn');
+                let value = Math.ceil(Math.random() * 3600); // Track the current rotation angle
+    
+                spinBtn.onclick = function() {
+                    wheel.style.transform = "rotate(" + value + "deg)";
+                    value += Math.ceil(Math.random() * 3600);
+                    delay(10000);
+                 
+                }
+                document.getElementById('closePopupBtn').onclick = function() {
+            // Add a hidden class to fade out and hide the pop-up
+            document.getElementById('popup').classList.add('hidden');
+        };
+    
+                
+            </script>
+        </div>
+        
+        <div class="button-container">
+            <button class="push-btn" data-number="1">1 <span class="bet-display" id="bet-display-1"></span></button>
+            <button class="push-btn" data-number="2">2 <span class="bet-display" id="bet-display-2"></span></button>
+            <button class="push-btn" data-number="3">3 <span class="bet-display" id="bet-display-3"></span></button>
+            <button class="push-btn" data-number="4">4 <span class="bet-display" id="bet-display-4"></span></button>
+            <button class="push-btn" data-number="5">5 <span class="bet-display" id="bet-display-5"></span></button>
+            <button class="push-btn" data-number="6">6 <span class="bet-display" id="bet-display-6"></span></button>
+            <button class="push-btn" data-number="7">7 <span class="bet-display" id="bet-display-7"></span></button>
+            <button class="push-btn" data-number="8">8 <span class="bet-display" id="bet-display-8"></span></button>
+            <button class="push-btn" data-number="9">9 <span class="bet-display" id="bet-display-9"></span></button>
+            <button class="push-btn" data-number="10">10<span class="bet-display" id="bet-display-10"></span></button>
+            <button class="push-btn" data-number="11">11<span class="bet-display" id="bet-display-11"></span></button>
+            <button class="push-btn" data-number="12">12<span class="bet-display" id="bet-display-12"></span></button>
+            <button class="push-btn" data-number="13">13<span class="bet-display" id="bet-display-13"></span></button>
+            <button class="push-btn" data-number="14">14<span class="bet-display" id="bet-display-14"></span></button>
+            <button class="push-btn" data-number="15">15<span class="bet-display" id="bet-display-15"></span></button>
+            <button class="push-btn" data-number="16">16<span class="bet-display" id="bet-display-16"></span></button>
+            
+            
+        </div>
+        <div class="range-container">
+            <button class="range-btn" data-number="1-8">1-8<span class="bet-display" id="range1-8-btn"></span></button>
+            <button class="range-btn" data-number="9-16">9-16<span class="bet-display" id="range9-16-btn"></span></button>
+            
+        </div>
+       
+
+        
+        <div class="color-buttons">
+            <button class="color-btn green" data-color="zero">ZERO <span class="bet-display" id="bet-display-zero"></span></button>
+            <button class="color-btn black" data-color="black">Black <span class="bet-display" id="bet-display-black"></span></button>
+            <button class="color-btn red" data-color="red">Red <span class="bet-display" id="bet-display-red"></span></button>
+        </div>
+        <div class="control-buttons">
+            <button class="action-btn" id="undo-btn">Undo</button>
+            <button class="action-btn" id="redo-btn">Redo</button>
+        </div>
+        <script>
+            const numberButtons = document.querySelectorAll('.push-btn');
+            const colorButtons = document.querySelectorAll('.color-btn');
+        
+            // Function to set the bet amount next to the respective button
+            function setBetAmount(elementId, amount) {
+                document.getElementById(elementId).innerText = `Bet: $${amount}`;
+            }
+        
+            // Handle number button clicks
+            numberButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const betAmount = prompt("Enter your bet amount:"); // Get bet amount from user
+                    if (betAmount) {
+                        const buttonId = button.getAttribute('data-number');
+                        setBetAmount(`bet-display-${buttonId}`, betAmount); // Display the bet
+                        
+                    }
+                });
+            });
+        
+            // Handle color button clicks
+            colorButtons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const betAmount = prompt("Enter your bet amount:"); // Get bet amount from user
+                    if (betAmount) {
+                        const color = button.getAttribute('data-color');
+                        setBetAmount(`bet-display-${color}`, betAmount); // Display the bet
+                    }
+                });
+            });
+            // Select all the range buttons (1-8 and 9-16)
+const rangeButtons = document.querySelectorAll('.range-btn');
+
+// Loop through each range button and add an event listener
+rangeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        const betAmount = prompt("Enter your bet amount:"); // Ask the user for a bet amount
+        if (betAmount) {
+            const range = button.getAttribute('data-number'); // Get the range (1-8 or 9-16)
+            setBetAmount(`range${range}-btn`, betAmount); // Display the bet in the span
+        }
+    });
+});
+
+// Function to display the bet in the corresponding element
+function setBetAmount(elementId, betAmount) {
+    const betDisplayElement = document.getElementById(elementId); // Find the span element by its ID
+    if (betDisplayElement) {
+        betDisplayElement.innerText = `Bet: ${betAmount}`; // Update the span with the bet amount
+    }
+}
+
+            
+            
+            
+
+        </script>
+        <div class="player-container">
+        <div class="player" id="player1">
+            <h3>Player 1</h3>
+            <p>Credits: <span id="credits-player1">1000</span></p>
+        </div>
+        <div class="player" id="player2">
+            <h3>Player 2</h3>
+            <p>Credits: <span id="credits-player2">1000</span></p>
+        </div>
+        <div class="player" id="player3">
+            <h3>Player 3</h3>
+            <p>Credits: <span id="credits-player3">1000</span></p>
+        </div>
+        <div class="player" id="player4">
+            <h3>Player 4</h3>
+            <p>Credits: <span id="credits-player4">1000</span></p>
+        </div>
+        <div class="player" id="player5">
+            <h3>Player 5</h3>
+            <p>Credits: <span id="credits-player5">1000</span></p>
+        </div>
+        
+            <!-- Container for Chip Distribution and Profile buttons -->
+        <div class="buttons-above-image-container">
+            <button class="profile-btn">Profile</button>
+            <button class="chip-btn">Distribute Chips</button>
+        </div>
+        
+        
+        
+    </div>
+        
+    </body>
+</html>

@@ -152,7 +152,7 @@ function createUniqueID(InsertID){
 
 function maxAmountServer(players){
     amount_of_players = players.length 
-    if (amount_of_players = 10){
+    if (amount_of_players === 10){
 
         NoEntry = false; 
         console.log("Server Max");
@@ -164,3 +164,10 @@ function maxAmountServer(players){
     }
 
 }
+
+
+//make random numbers appear on small box
+//make the final number the winning number
+// create a set of min max for the value for the different triangles of the pie
+// create a min max for the amount of rotations 
+// create a compuatation that would take in the random taken value of the rotation and divide it by 360 modulo and the remainder should be divided by 21.18 deciding the range

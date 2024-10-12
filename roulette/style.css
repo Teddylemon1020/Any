@@ -3,7 +3,7 @@
 {
     margin: 0;
     padding: 0;
-    box-sizing: borer-box;
+    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 
 }
@@ -365,9 +365,72 @@ body {
     transform: translateY(4px); /* Slight movement on click */
 }
 
-/* CSS for inactive state */
 .inactive {
-    pointer-events: none; 
-    opacity: 0.5; 
+    pointer-events: none; /* Disable clicking */
+    opacity: 0.5;         /* Make it look disabled */
 }
 
+
+.popup-overlay {
+    display: none; /* Hide the popup by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.popup-content {
+    position: relative;
+    margin: 15% auto;
+    padding: 20px;
+    background-color: white;
+    width: 80%;
+    max-width: 400px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.popup-overlay.hidden {
+    visibility: hidden;
+    opacity: 0;
+}
+
+
+/* Button styling */
+.close-popup-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.disable-bet-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.toggle-bet-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.toggle-bet-btn.disabled {
+    background-color: #4CAF50; /* Change color to green when enabling bets */
+}
+
+.toggle-bet-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}

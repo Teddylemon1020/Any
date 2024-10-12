@@ -5,6 +5,37 @@
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
+        <div class="popup-overlay" id="popup">
+            <div class="popup-content">
+                <h2>RULES and REGULATIONS</h2>
+                <p>PAY TABLE RULES<br>
+                    Red or Black: 1:1<br>
+                    1-8 or 9-16: 1:1<br>
+                    Zero (Green): 1:8<br>
+                    Direct Number (Single Number): 1:15<br><br>
+                    P.S. "players must withdraw their credit 1st before changing bankero"</br>
+                </p>
+                <button class="close-popup-btn" id="closePopupBtn">I Understand</button>
+            </div>
+        </div>
+        
+        <script>
+          // Get the popup overlay and the close button
+          const popup = document.getElementById('popup');
+          const closePopupBtn = document.getElementById('closePopupBtn');
+        
+          // Add event listener to the button
+          closePopupBtn.addEventListener('click', function() {
+              // Hide the popup by setting its display to 'none'
+              popup.style.display = 'none';
+          });
+        
+          // Optionally, you can automatically display the popup on page load
+          window.onload = function() {
+              popup.style.display = 'block';  // Show the popup when the page loads
+          };
+        </script>
+        
         <div class="container">
             <div class="spinBtn">Spin</div>
             <div class="wheel">
@@ -61,19 +92,64 @@
                 </div>
             </div>
             <script>
-                let wheel = document.querySelector('.wheel');
+                let wheel = document.querySelector('.wheel');       
                 let spinBtn = document.querySelector('.spinBtn');
-                let value = Math.ceil(Math.random() * 3600); // Track the current rotation angle
-    
-                spinBtn.onclick = function() {
-                    wheel.style.transform = "rotate(" + value + "deg)";
-                    value += Math.ceil(Math.random() * 3600);
-                
-                 
+                let value = 0; // Initial value for rotation
+
+                // Array with min/max degrees and values
+                const characterValues = [
+                    { minDegree: 349.41, maxDegree: 10.59, value: 1 },
+                    { minDegree: 10.60, maxDegree: 31.77, value: 0 },
+                    { minDegree: 31.78, maxDegree: 52.96, value: 16 },
+                    { minDegree: 52.97, maxDegree: 74.14, value: 15 },
+                    { minDegree: 74.15, maxDegree: 95.32, value: 14 },
+                    { minDegree: 95.33, maxDegree: 116.5, value: 13 },
+                    { minDegree: 116.51, maxDegree: 137.68, value: 12 },
+                    { minDegree: 137.69, maxDegree: 158.86, value: 11 },
+                    { minDegree: 158.87, maxDegree: 180.04, value: 10 },
+                    { minDegree: 180.05, maxDegree: 201.22, value: 9 },
+                    { minDegree: 201.23, maxDegree: 222.4, value: 8 },
+                    { minDegree: 222.41, maxDegree: 243.58, value: 7 },
+                    { minDegree: 243.59, maxDegree: 264.76, value: 6 },
+                    { minDegree: 264.77, maxDegree: 285.94, value: 5 },
+                    { minDegree: 285.95, maxDegree: 307.12, value: 4 },
+                    { minDegree: 307.13, maxDegree: 328.3, value: 3 },
+                    { minDegree: 328.31, maxDegree: 349.4, value: 2 }
+                ];
+
+                // Function to get the result from the degrees
+                function getResultFromDegree(degrees) {
+                    let normalizedDegrees = degrees % 360; // Normalize degrees to the range 0-359
+                    console.log("Normalized Degrees:", normalizedDegrees); // Log the normalized degrees
+                    for (let i = 0; i < characterValues.length; i++) {
+                        const { minDegree, maxDegree, value } = characterValues[i];
+                        if (
+                            (normalizedDegrees >= minDegree && normalizedDegrees <= maxDegree) ||
+                            (minDegree > maxDegree && (normalizedDegrees >= minDegree || normalizedDegrees <= maxDegree))
+                        ) {
+                            return value; // Return the value corresponding to the degree range
+                        }
+                    }
+                    return null; // Return null if no match
                 }
-    
-                
-            </script>
+
+                spinBtn.onclick = function() {
+                    wheel.style.transition = "transform 3s ease-out"; // Fast spin
+                    let randomValue = Math.floor(Math.random() * 16); // Generate a random value
+                    let targetDegree = (randomValue * 22.5) + 90; // Calculate the target degree (aligned to 90 degrees)
+                    let additionalRotations = 3 * 360;
+                    value += targetDegree + additionalRotations; // Update the rotation value
+                    wheel.style.transform = `rotate(${value}deg)`; // Spin the wheel
+
+                    setTimeout(() => {
+                        let finalValue = value % 360; // Get the final rotation angle
+                        console.log("Final Value (Degrees):", finalValue); // Log the final rotation angle
+                        let result = getResultFromDegree(finalValue); // Find the result
+                        alert("Landed on: " + result); // Show the result
+                    }, 3100); // Wait for the rotation to finish
+                };
+
+        </script>
         </div>
         
         <div class="button-container">
@@ -109,7 +185,10 @@
             <button class="color-btn black" data-color="black">Black <span class="bet-display" id="bet-display-black"></span></button>
             <button class="color-btn red" data-color="red">Red <span class="bet-display" id="bet-display-red"></span></button>
         </div>
-        
+        <div class="control-buttons">
+            <button class="action-btn" id="undo-btn">Undo</button>
+            <button class="action-btn" id="redo-btn">Redo</button>
+        </div>
         <script>
             const numberButtons = document.querySelectorAll('.push-btn');
             const colorButtons = document.querySelectorAll('.color-btn');
@@ -163,10 +242,7 @@ function setBetAmount(elementId, betAmount) {
     }
 }
 
-            
-            
-            
-
+    
         </script>
         <div class="player-container">
         <div class="player" id="player1">
@@ -196,9 +272,43 @@ function setBetAmount(elementId, betAmount) {
             <button class="chip-btn">Distribute Chips</button>
         </div>
         
+        <div class="disable-bet-container">
+            <button id="toggleBetBtn" class="toggle-bet-btn">Disable Bets</button>
+        </div>
+        
+        <script>
+            // Select the toggle button
+            const toggleBetBtn = document.getElementById('toggleBetBtn');
+        
+            // Select all the betting buttons
+            const betButtons = document.querySelectorAll('.push-btn, .color-btn, .range-btn');
+        
+            // Initialize a flag to track the state (disabled or not)
+            let isBettingDisabled = false;
+        
+            // Add click event listener to toggle the betting functionality
+            toggleBetBtn.addEventListener('click', () => {
+                isBettingDisabled = !isBettingDisabled;
+        
+                // Toggle bet buttons' disabled state based on isBettingDisabled flag
+                betButtons.forEach(button => {
+                    button.disabled = isBettingDisabled;
+                });
+        
+                // Update the button text and color based on the state
+                if (isBettingDisabled) {
+                    toggleBetBtn.innerText = 'Enable Bets';
+                    toggleBetBtn.classList.add('disabled');
+                } else {
+                    toggleBetBtn.innerText = 'Disable Bets';
+                    toggleBetBtn.classList.remove('disabled');
+                }
+            });
+        </script>
         
         
     </div>
+    
         
     </body>
 </html>

@@ -1,49 +1,74 @@
-// Create an array with min/max degrees and values.
-const characterValues = [
-  { minDegree: 349.41, maxDegree: 10.59, value: 0 },
-  { minDegree: 10.60, maxDegree: 31.77, value: 1 },
-  { minDegree: 31.78, maxDegree: 52.96, value: 2 },
-  { minDegree: 52.97, maxDegree: 74.14, value: 3 },
-  { minDegree: 74.15, maxDegree: 95.32, value: 4 },
-  { minDegree: 95.33, maxDegree: 116.5, value: 5 },
-  { minDegree: 116.51, maxDegree: 137.68, value: 6 },
-  { minDegree: 137.69, maxDegree: 158.86, value: 7 },
-  { minDegree: 158.87, maxDegree: 180.04, value: 8 },
-  { minDegree: 180.05, maxDegree: 201.22, value: 9 },
-  { minDegree: 201.23, maxDegree: 222.4, value: 10 },
-  { minDegree: 222.41, maxDegree: 243.58, value: 11 },
-  { minDegree: 243.59, maxDegree: 264.76, value: 12 },
-  { minDegree: 264.77, maxDegree: 285.94, value: 13 },
-  { minDegree: 285.95, maxDegree: 307.12, value: 14 },
-  { minDegree: 307.13, maxDegree: 328.3, value: 15 },
-  { minDegree: 328.31, maxDegree: 349.0, value: 16 },
+// Assume the initial credits for each player
+let players = [
+  { playerID: 1, CurrentPoints: 1000 },
+  { playerID: 2, CurrentPoints: 1000 },
+  { playerID: 3, CurrentPoints: 1000 },
+  { playerID: 4, CurrentPoints: 1000 },
+  { playerID: 5, CurrentPoints: 1000 }
 ];
 
-// number of rotations
-const rangeRotation = [361, 1050];
+// Function to update credits display
+function updateCreditsDisplay(playerIndex) {
+  const creditsElement = document.getElementById(`credits-player${playerIndex + 1}`);
+  creditsElement.innerText = players[playerIndex].CurrentPoints;
+}
 
-// Get a random value from range to make it into rotations
-const ranran = Math.floor(Math.random() * (rangeRotation[1] - rangeRotation[0] + 1)) + rangeRotation[0];
+// Modify the number button click handler
+numberButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+      const playerIndex = 0; // Assuming player 1 is the active player
+      const betAmount = parseInt(prompt("Enter your bet amount:")); // Get bet amount from user
+      if (betAmount && betAmount > 0 && betAmount <= players[playerIndex].CurrentPoints) {
+          const buttonId = button.getAttribute('data-number');
+          setBetAmount(`bet-display-${buttonId}`, betAmount); // Display the bet
 
-// modulo to get remainder meaning it has spun morethan 360
-const remainder = ranran % 360;
-
-// Map the remainder to the correct character value by checking if it falls within any min/max degree range.
-const winningValue = characterValues.find(({ minDegree, maxDegree }) => {
-  if (minDegree > maxDegree) {
-    // If the range wraps around (like 349.41 to 10.59), check if remainder falls into either side.
-    return remainder >= minDegree || remainder <= maxDegree;
-  } else {
-    // Otherwise, check normally if remainder falls within the range.
-    return remainder >= minDegree && remainder <= maxDegree;
-  }
+          // Deduct bet amount from player's current points
+          players[playerIndex].CurrentPoints -= betAmount;
+          updateCreditsDisplay(playerIndex); // Update the display
+      } else {
+          alert("Invalid bet amount.");
+      }
+  });
 });
 
-// Output the results.
-console.log(`Random rotation: ${ranran}`);
-console.log(`Remainder: ${remainder}`);
-console.log(`Winning character value: ${winningValue.value}`);
+// Handle color button clicks
+colorButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+      const playerIndex = 0; // Assuming player 1 is the active player
+      const betAmount = parseInt(prompt("Enter your bet amount:")); // Get bet amount from user
+      if (betAmount && betAmount > 0 && betAmount <= players[playerIndex].CurrentPoints) {
+          const color = button.getAttribute('data-color');
+          setBetAmount(`bet-display-${color}`, betAmount); // Display the bet
 
+          // Deduct bet amount from player's current points
+          players[playerIndex].CurrentPoints -= betAmount;
+          updateCreditsDisplay(playerIndex); // Update the display
+      } else {
+          alert("Invalid bet amount.");
+      }
+  });
+});
+
+// Handle range button clicks
+rangeButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+      const playerIndex = 0; // Assuming player 1 is the active player
+      const betAmount = parseInt(prompt("Enter your bet amount:")); // Ask the user for a bet amount
+      if (betAmount && betAmount > 0 && betAmount <= players[playerIndex].CurrentPoints) {
+          const range = button.getAttribute('data-number'); // Get the range (1-8 or 9-16)
+          setBetAmount(`range${range}-btn`, betAmount); // Display the bet in the span
+
+          // Deduct bet amount from player's current points
+          players[playerIndex].CurrentPoints -= betAmount;
+          updateCreditsDisplay(playerIndex); // Update the display
+      } else {
+          alert("Invalid bet amount.");
+      }
+  });
+});
+
+// Update the credits display for player 1 on page load
+updateCreditsDisplay(0);
 
 
 

@@ -134,20 +134,38 @@
                 }
 
                 spinBtn.onclick = function() {
-                    wheel.style.transition = "transform 3s ease-out"; // Fast spin
-                    let randomValue = Math.floor(Math.random() * 16); // Generate a random value
-                    let targetDegree = (randomValue * 22.5) + 90; // Calculate the target degree (aligned to 90 degrees)
-                    let additionalRotations = 3 * 360;
-                    value += targetDegree + additionalRotations; // Update the rotation value
-                    wheel.style.transform = `rotate(${value}deg)`; // Spin the wheel
+    wheel.style.transition = "transform 3s ease-out"; // Fast spin
+    let randomValue = Math.floor(Math.random() * 16); // Generate a random value
+    let targetDegree = (randomValue * 22.5) + 90; // Calculate the target degree (aligned to 90 degrees)
+    let additionalRotations = 3 * 360;
+    value += targetDegree + additionalRotations; // Update the rotation value
+    wheel.style.transform = `rotate(${value}deg)`; // Spin the wheel
 
-                    setTimeout(() => {
-                        let finalValue = value % 360; // Get the final rotation angle
-                        console.log("Final Value (Degrees):", finalValue); // Log the final rotation angle
-                        let result = getResultFromDegree(finalValue); // Find the result
-                        alert("Landed on: " + result); // Show the result
-                    }, 3100); // Wait for the rotation to finish
-                };
+     // This code will run after the wheel.js file is loaded
+     setTimeout(() => {
+        let finalValue = value % 360; // Get the final rotation angle
+        console.log("Final Value (Degrees):", finalValue); // Log the final rotation angle
+        let result = getResultFromDegree(finalValue); // Find the result
+        alert("Landed on: " + result); // Show the result
+
+        // Call the function with the result after a brief delay
+        setTimeout(() => {
+            checkResultForPlayer1(result); // Call the function with the result
+        }, 100); // Wait for 100ms before checking the result
+
+        // Clear bets after a brief delay
+        setTimeout(clearBets, 200); // Clear bets after 200ms
+    }, 3100); // Wait for the rotation to finish
+};
+
+                function clearBets() {
+    // Clear all bet displays
+    const betDisplays = document.querySelectorAll('.bet-display');
+    betDisplays.forEach(display => {
+        display.innerText = ''; // Clear the bet text
+    });
+}
+                
 
         </script>
         </div>
@@ -198,41 +216,12 @@
                 document.getElementById(elementId).innerText = `Bet: $${amount}`;
             }
         
-            // Handle number button clicks
-            numberButtons.forEach((button) => {
-                button.addEventListener('click', () => {
-                    const betAmount = prompt("Enter your bet amount:"); // Get bet amount from user
-                    if (betAmount) {
-                        const buttonId = button.getAttribute('data-number');
-                        setBetAmount(`bet-display-${buttonId}`, betAmount); // Display the bet
-                        
-                    }
-                });
-            });
-        
-            // Handle color button clicks
-            colorButtons.forEach((button) => {
-                button.addEventListener('click', () => {
-                    const betAmount = prompt("Enter your bet amount:"); // Get bet amount from user
-                    if (betAmount) {
-                        const color = button.getAttribute('data-color');
-                        setBetAmount(`bet-display-${color}`, betAmount); // Display the bet
-                    }
-                });
-            });
+          
+  
             // Select all the range buttons (1-8 and 9-16)
 const rangeButtons = document.querySelectorAll('.range-btn');
 
-// Loop through each range button and add an event listener
-rangeButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-        const betAmount = prompt("Enter your bet amount:"); // Ask the user for a bet amount
-        if (betAmount) {
-            const range = button.getAttribute('data-number'); // Get the range (1-8 or 9-16)
-            setBetAmount(`range${range}-btn`, betAmount); // Display the bet in the span
-        }
-    });
-});
+
 
 // Function to display the bet in the corresponding element
 function setBetAmount(elementId, betAmount) {
@@ -244,33 +233,12 @@ function setBetAmount(elementId, betAmount) {
 
     
         </script>
-        <div class="player-container">
+       <div class="player-container">
         <div class="player" id="player1">
             <h3>Player 1</h3>
-            <p>Credits: <span id="credits-player1">1000</span></p>
+            <p>Credits: <span id="credits-player1"></span></p>
         </div>
-        <div class="player" id="player2">
-            <h3>Player 2</h3>
-            <p>Credits: <span id="credits-player2">1000</span></p>
-        </div>
-        <div class="player" id="player3">
-            <h3>Player 3</h3>
-            <p>Credits: <span id="credits-player3">1000</span></p>
-        </div>
-        <div class="player" id="player4">
-            <h3>Player 4</h3>
-            <p>Credits: <span id="credits-player4">1000</span></p>
-        </div>
-        <div class="player" id="player5">
-            <h3>Player 5</h3>
-            <p>Credits: <span id="credits-player5">1000</span></p>
-        </div>
-        
-            <!-- Container for Chip Distribution and Profile buttons -->
-        <div class="buttons-above-image-container">
-            <button class="profile-btn">Profile</button>
-            <button class="chip-btn">Distribute Chips</button>
-        </div>
+    </div>
         
         <div class="disable-bet-container">
             <button id="toggleBetBtn" class="toggle-bet-btn">Disable Bets</button>
@@ -304,8 +272,12 @@ function setBetAmount(elementId, betAmount) {
                     toggleBetBtn.classList.remove('disabled');
                 }
             });
+
+            
         </script>
-        
+         <script src="wheel.js">
+            checkResultForPlayer1(result)
+         </script>
         
     </div>
     

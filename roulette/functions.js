@@ -166,6 +166,8 @@ function maxAmountServer(players){
 }
 
 
+
+
 //make random numbers appear on small box
 //make the final number the winning number
 // create a set of min max for the value for the different triangles of the pie
